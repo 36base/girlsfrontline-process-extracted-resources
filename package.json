@@ -1,0 +1,8 @@
+{
+  "name": "girlsfrontline-process-extracted-data",
+  "version": "1.0.0",
+  "main": "./src/index.js",
+  "repository": "https://github.com/36base/girlsfrontline-process-extracted-resources.git",
+  "author": "okms00909 <okms00909@gmail.com>",
+  "license": "MIT"
+}
