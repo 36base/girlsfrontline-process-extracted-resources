@@ -4,5 +4,8 @@
   "main": "./src/index.js",
   "repository": "https://github.com/36base/girlsfrontline-process-extracted-resources.git",
   "author": "okms00909 <okms00909@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "girlsfrontline-core": "^1.0.10-alpha11"
+  }
 }
