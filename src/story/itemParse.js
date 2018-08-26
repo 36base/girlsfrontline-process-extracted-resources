@@ -8,7 +8,7 @@ const lineStrParse = (lineStr) => {
   const separator = lineStr.indexOf('：') !== -1 ? '：' : ':';
 
   const mediaStr = lineStr.substring(lineStr.indexOf('||') + 2, lineStr.indexOf(separator)); // not ':', '：' right
-  const textNumStr = lineStr.substring(lineStr.indexOf(separator) + 1, lineStr.length);
+  const textStr = lineStr.substring(lineStr.indexOf(separator) + 1, lineStr.length);
 
 
   const getInnerStrByTagNameFromStr = (str, tag) => {
@@ -35,6 +35,8 @@ const lineStrParse = (lineStr) => {
       if (mediaStr.indexOf('睁眼') !== -1) { screenEffect = "blink"; }
       if (mediaStr.indexOf('黑屏1') !== -1) { screenEffect = "dark1"; }
       if (mediaStr.indexOf('黑屏2') !== -1) { screenEffect = "dark2"; }
+      if (mediaStr.indexOf('白屏1') !== -1) { screenEffect = "white1"; }
+      if (mediaStr.indexOf('白屏2') !== -1) { screenEffect = "white2"; }
       if (mediaStr.indexOf('黑点1') !== -1) { screenEffect = "blackSpot1"; }
       if (mediaStr.indexOf('黑点2') !== -1) { screenEffect = "blackSpot2"; }
       if (mediaStr.indexOf('刮花') !== -1) { screenEffect = "scratching"; }
@@ -44,6 +46,8 @@ const lineStrParse = (lineStr) => {
 
       if (screenEffect) { result.screenEffect = screenEffect; }
     }
+    const spot = getInnerStrByTagNameFromStr(mediaStr, '分支');;
+    if (spot) result.spot = spot;
 
     const sound = { };
     {
@@ -82,12 +86,11 @@ const lineStrParse = (lineStr) => {
 
       return result;
     });
-
-    result.character = characters;
+    result.characters = characters;
     if (JSON.stringify(speaker) !== "{}") { result.speaker = speaker; }
   }
 
-  if (textNumStr.trim() !== '') { result.text = Number(textNumStr.trim());}
+  if (textStr.trim() !== '') { result.text = textStr.trim();}
 
   return result;
 }
@@ -102,7 +105,7 @@ const itemParse = (str) => {
   const result = splits.map(iter => {
     const lineResult = lineStrParse(iter);
 
-    if (lineResult.text) {
+    if (lineResult.text && Number(lineResult.text)) {
       lineResult.text = textData[lineResult.text];
     }
     return lineResult;

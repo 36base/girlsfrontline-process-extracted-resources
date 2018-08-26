@@ -14,7 +14,7 @@ rl.question('Path For Data Directory : ', (answer) => {
     files.forEach(iter => {
       fs.readFile(`${answer}/${iter}`, 'utf8', (err, data) => {
         if (data) {
-          fs.writeFile(`./../../output/${iter.substring(0, iter.indexOf('.txt'))}.json`, JSON.stringify(itemParse(data)), err => {
+          fs.writeFile(`./../../output/${iter.substring(0, iter.indexOf('.txt'))}.json`, JSON.stringify(itemParse(data), null, 2), err => {
             if (err) { console.log(err); }
           });
         }
